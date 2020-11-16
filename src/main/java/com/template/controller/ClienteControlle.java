@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -22,6 +23,10 @@ import com.template.repository.ClienteRepository;
 @CrossOrigin()
 @RequestMapping(value = "/clientes")
 public class ClienteControlle {
+	
+	@Autowired
+	@Qualifier("teste_bean")
+	private String testeBean;
 	
 	@Autowired
 	private ClienteRepository clienteRepository;

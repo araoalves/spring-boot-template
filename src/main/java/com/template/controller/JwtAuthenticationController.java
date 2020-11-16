@@ -1,6 +1,6 @@
 package com.template.controller;
 
-import com.template.config.JwtTokenUtil;
+import com.template.config.jwt.JwtTokenUtil;
 import com.template.model.JwtRequest;
 import com.template.model.JwtResponse;
 import com.template.model.UserDto;

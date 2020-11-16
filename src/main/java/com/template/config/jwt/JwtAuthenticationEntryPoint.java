@@ -1,4 +1,4 @@
-package com.template.config;
+package com.template.config.jwt;
 
 import java.io.IOException;
 import java.io.Serializable;
