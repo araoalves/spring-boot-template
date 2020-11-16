@@ -19,9 +19,13 @@ import org.springframework.web.bind.annotation.RestController;
 import com.template.model.Cliente;
 import com.template.repository.ClienteRepository;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
 @RestController
 @CrossOrigin()
 @RequestMapping(value = "/clientes")
+@Api(value = "Clientes")
 public class ClienteControlle {
 	
 	@Autowired
@@ -31,6 +35,7 @@ public class ClienteControlle {
 	@Autowired
 	private ClienteRepository clienteRepository;
 	
+	@ApiOperation(value = "Mostrar lista de clientes")
 	@RequestMapping(value = "/listarClientes", method = RequestMethod.GET)
     public ResponseEntity<List<Cliente>> listarClientes() {
 		List<Cliente> clientes = (List<Cliente>) clienteRepository.findAll();

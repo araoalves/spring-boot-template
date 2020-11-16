@@ -11,6 +11,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 @Service
 public class JwtUserDetailsService implements UserDetailsService {
@@ -34,6 +35,12 @@ public class JwtUserDetailsService implements UserDetailsService {
 		User newUser = new User();
 		newUser.setUsername(user.getUsername());
 		newUser.setPassword(bcryptEncoder.encode(user.getPassword()));
+		newUser.setTelefone(user.getTelefone());
+		newUser.setEmail(user.getEmail());
+		
+		Calendar calendar = Calendar.getInstance();
+	    newUser.setData_cadastro(calendar.getTime());
+		
 		return userDao.save(newUser);
 	}
 }
