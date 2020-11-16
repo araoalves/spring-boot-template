@@ -21,11 +21,14 @@ import com.template.repository.ClienteRepository;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
+import io.swagger.annotations.Authorization;
 
 @RestController
 @CrossOrigin()
 @RequestMapping(value = "/clientes")
-@Api(value = "Clientes")
+@Api(value="clientes", description="operações de clientes")
 public class ClienteControlle {
 	
 	@Autowired
@@ -35,13 +38,19 @@ public class ClienteControlle {
 	@Autowired
 	private ClienteRepository clienteRepository;
 	
-	@ApiOperation(value = "Mostrar lista de clientes")
+	@ApiOperation(value = "Mostrar lista de clientes", authorizations = { @Authorization(value="apiKey") })
+	@ApiResponses(value = {
+		    @ApiResponse(code = 200, message = "Retorna a lista de clientes"),
+		    @ApiResponse(code = 401, message = "Você não tem permissão para acessar este recurso"),
+		    @ApiResponse(code = 500, message = "Foi gerada uma exceção"),
+		})
 	@RequestMapping(value = "/listarClientes", method = RequestMethod.GET)
     public ResponseEntity<List<Cliente>> listarClientes() {
 		List<Cliente> clientes = (List<Cliente>) clienteRepository.findAll();
 		return new ResponseEntity<>(clientes, HttpStatus.OK);
     }
 	
+	@ApiOperation(value = "Cadastrar clientes", authorizations = { @Authorization(value="apiKey") })
 	@RequestMapping(value = "/cadastrarCliente", method = RequestMethod.POST)
 	public ResponseEntity<?> cadastrarCliente(@RequestBody Cliente cliente) throws Exception {		
 		try {
@@ -51,6 +60,7 @@ public class ClienteControlle {
 		}
 	}
 	
+	@ApiOperation(value = "Excluir cliente", authorizations = { @Authorization(value="apiKey") })
 	@DeleteMapping("excluirCliente/{id}")
 	public ResponseEntity<HttpStatus> excluirCliente(@PathVariable("id") long id) {
 		try {
@@ -61,6 +71,7 @@ public class ClienteControlle {
 		}
 	}
 	
+	@ApiOperation(value = "Editar cliente", authorizations = { @Authorization(value="apiKey") })
 	@PutMapping("editarCliente/{id}")
 	public ResponseEntity<Cliente> editarCliente(@PathVariable("id") long id, @RequestBody Cliente cliente) {
 		
