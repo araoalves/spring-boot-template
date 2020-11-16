@@ -29,7 +29,7 @@ import io.swagger.annotations.Authorization;
 @CrossOrigin()
 @RequestMapping(value = "/clientes")
 @Api(value="clientes", description="operações de clientes")
-public class ClienteControlle {
+public class ClienteController {
 	
 	@Autowired
 	@Qualifier("teste_bean")
