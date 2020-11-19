@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.template.business.IClienteBO;
 import com.template.model.Cliente;
-import com.template.repository.ClienteRepository;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -36,7 +36,7 @@ public class ClienteController {
 	private String testeBean;
 	
 	@Autowired
-	private ClienteRepository clienteRepository;
+	private IClienteBO clienteBO;
 	
 	@ApiOperation(value = "Mostrar lista de clientes", authorizations = { @Authorization(value="apiKey") })
 	@ApiResponses(value = {
@@ -45,16 +45,21 @@ public class ClienteController {
 		    @ApiResponse(code = 500, message = "Foi gerada uma exceção"),
 		})
 	@RequestMapping(value = "/listarClientes", method = RequestMethod.GET)
-    public ResponseEntity<List<Cliente>> listarClientes() {
-		List<Cliente> clientes = (List<Cliente>) clienteRepository.findAll();
-		return new ResponseEntity<>(clientes, HttpStatus.OK);
+    public ResponseEntity<List<Cliente>> listarClientes() {	
+		try {
+			List<Cliente> clientes = (List<Cliente>) clienteBO.findAll();
+			return new ResponseEntity<>(clientes, HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
+		}		
+		
     }
 	
 	@ApiOperation(value = "Cadastrar clientes", authorizations = { @Authorization(value="apiKey") })
 	@RequestMapping(value = "/cadastrarCliente", method = RequestMethod.POST)
 	public ResponseEntity<?> cadastrarCliente(@RequestBody Cliente cliente) throws Exception {		
 		try {
-			return new ResponseEntity<>(clienteRepository.save(cliente), HttpStatus.CREATED);
+			return new ResponseEntity<>(clienteBO.save(cliente), HttpStatus.CREATED);
 		} catch (Exception e) {
 			return new ResponseEntity<>(null, HttpStatus.EXPECTATION_FAILED);
 		}
@@ -64,7 +69,7 @@ public class ClienteController {
 	@DeleteMapping("excluirCliente/{id}")
 	public ResponseEntity<HttpStatus> excluirCliente(@PathVariable("id") long id) {
 		try {
-			clienteRepository.deleteById(id);
+			clienteBO.deleteById(id);
 			return new ResponseEntity<>(HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
@@ -73,18 +78,31 @@ public class ClienteController {
 	
 	@ApiOperation(value = "Editar cliente", authorizations = { @Authorization(value="apiKey") })
 	@PutMapping("editarCliente/{id}")
-	public ResponseEntity<Cliente> editarCliente(@PathVariable("id") long id, @RequestBody Cliente cliente) {
-		
-		Optional<Cliente> clienteAtual = clienteRepository.findById(id);
+	public ResponseEntity<Cliente> editarCliente(@PathVariable("id") long id, @RequestBody Cliente cliente) {				
+		try {
+			Optional<Cliente> clienteAtual = clienteBO.findById(id);
 
-		if (clienteAtual.isPresent()) {
-			Cliente _cliente = clienteAtual.get();
-			_cliente.setNome(cliente.getNome());
-			_cliente.setTelefone(cliente.getTelefone());
-			return new ResponseEntity<>(clienteRepository.save(_cliente), HttpStatus.OK);
-		} else {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
+			if (clienteAtual.isPresent()) {
+				Cliente _cliente = clienteAtual.get();
+				_cliente.setNome(cliente.getNome());
+				_cliente.setTelefone(cliente.getTelefone());
+				return new ResponseEntity<>(clienteBO.save(_cliente), HttpStatus.OK);
+			} else {
+				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			}
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
+		}		
 	}
+	
+	@RequestMapping(value = "/listarClientesSqlQuery", method = RequestMethod.GET)
+    public ResponseEntity<List<Cliente>> listarClientesSqlQuery() {	
+		try {
+			List<Cliente> clientes = (List<Cliente>) clienteBO.listarClientesSqlQuery();
+			return new ResponseEntity<>(clientes, HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
+		}		
+    }
 	
 }
