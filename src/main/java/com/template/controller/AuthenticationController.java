@@ -6,6 +6,7 @@ import com.template.model.JwtResponse;
 import com.template.model.UserDto;
 import com.template.service.JwtUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -42,7 +43,7 @@ public class AuthenticationController {
 
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	public ResponseEntity<?> saveUser(@RequestBody UserDto user) throws Exception {
-		return ResponseEntity.ok(userDetailsService.save(user));
+		return new ResponseEntity<>(userDetailsService.save(user), HttpStatus.CREATED);
 	}
 
 	private void authenticate(String username, String password) throws Exception {
