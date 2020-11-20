@@ -17,7 +17,7 @@ import lombok.ToString;
 public class ConsumerTemplateTest {
 
     @Autowired
-    private Consumer consumer;
+    private IConsumer consumer;
 
     @Test
     public void get() throws Exception {

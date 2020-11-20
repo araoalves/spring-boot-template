@@ -105,4 +105,14 @@ public class ClienteController {
 		}		
     }
 	
+	@ApiOperation(value = "Enviar Cliente RebbitMq", authorizations = { @Authorization(value="apiKey") })
+	@RequestMapping(value = "/enviarClienteRebbitMq", method = RequestMethod.POST)
+	public ResponseEntity<?> enviarClienteRebbitMq(@RequestBody Cliente cliente) throws Exception {		
+		try {
+			return new ResponseEntity<>(clienteBO.enviarClienteRebbitMq(cliente), HttpStatus.CREATED);
+		} catch (Exception e) {
+			return new ResponseEntity<>(null, HttpStatus.EXPECTATION_FAILED);
+		}
+	}
+	
 }

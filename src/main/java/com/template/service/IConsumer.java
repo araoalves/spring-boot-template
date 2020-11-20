@@ -6,11 +6,11 @@ import org.springframework.http.MediaType;
 
 import com.template.exception.ConsumerException;
 
-public interface Consumer {
+public interface IConsumer {
 
     @SuppressWarnings("rawtypes")
 	Object get(String url, Class typeReturnExpected, MediaType mediaType, Map<String, String> headers) throws ConsumerException;
     
     @SuppressWarnings("rawtypes")
-	Object post2(String url, Object objToSend, Class typeReturnExpected, MediaType mediaType, Map<String, String> headers) throws ConsumerException;
+	Object post(String url, Object objToSend, Class typeReturnExpected, MediaType mediaType, Map<String, String> headers) throws ConsumerException;
 }

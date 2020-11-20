@@ -17,4 +17,6 @@ public interface IClienteBO {
 
 	List<Cliente> listarClientesSqlQuery() throws Exception;
 
+	Cliente enviarClienteRebbitMq(Cliente cliente);
+
 }

@@ -20,7 +20,7 @@ import com.thoughtworks.xstream.XStream;
 
 
 @Service
-public class ConsumerTemplate implements Consumer {
+public class ConsumerTemplate implements IConsumer {
 
     @Autowired
     private RestTemplate restTemplate;
@@ -63,7 +63,7 @@ public class ConsumerTemplate implements Consumer {
     
     @Override
     @SuppressWarnings({ "unchecked", "rawtypes" })
-    public Object post2(String url, Object objToSend, Class typeReturnExpected, MediaType mediaType, Map<String,String> headers) throws ConsumerException {
+    public Object post(String url, Object objToSend, Class typeReturnExpected, MediaType mediaType, Map<String,String> headers) throws ConsumerException {
         try {
             String forObject = (String) restTemplate.postForEntity(url, new HttpEntity(objToSend, getPostHeaders(headers)), String.class).getBody();
 

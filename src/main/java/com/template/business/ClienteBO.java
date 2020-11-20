@@ -8,12 +8,16 @@ import org.springframework.stereotype.Component;
 
 import com.template.model.Cliente;
 import com.template.repository.IClienteRepository;
+import com.template.service.RabbitMQSender;
 
 @Component
 public class ClienteBO implements IClienteBO {
 	
 	@Autowired
 	private IClienteRepository clienteRepository;
+	
+	@Autowired
+	RabbitMQSender rabbitMQSender;
 
 	@Override
 	public List<Cliente> findAll() throws Exception {
@@ -38,6 +42,12 @@ public class ClienteBO implements IClienteBO {
 	@Override
 	public List<Cliente> listarClientesSqlQuery() throws Exception {
 		return clienteRepository.listarClientesSqlQuery();
+	}
+
+	@Override
+	public Cliente enviarClienteRebbitMq(Cliente cliente) {
+		rabbitMQSender.sendAluno(cliente);
+		return cliente;
 	}
 
 }

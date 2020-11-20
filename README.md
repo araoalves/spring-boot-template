@@ -1,8 +1,12 @@
-# Template Spring-Boot
+# Template Spring-Boot 2.4.0
 
-**Tecnologias:**
+**Tecnologias**
 
-- JPA
-- Banco Mysql
-- Autenticação JWT
-- Documentação com Swagger
+- JAVA 15
+- JPA (ok)
+- Banco Mysql (ok)
+- Autenticação JWT (ok)
+- Documentação com Swagger (ok)
+- RebbitMq para utilização de mensageria (ok)
+- Envio de E-mail SMTP
+- Relatórios Ireport
