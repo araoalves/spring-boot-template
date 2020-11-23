@@ -2,9 +2,9 @@ package com.template.service;
 
 import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import com.template.config.rebbitmq.RabbitMQConfig;
 import com.template.model.Cliente;
 
 @Service
@@ -13,16 +13,11 @@ public class RabbitMQSender {
 	@Autowired
 	private AmqpTemplate amqpTemplate;
 	
-	@Value("${javainuse.rabbitmq.exchange}")
-	private String exchange;
-	
-	@Value("${javainuse.rabbitmq.routingkey}")
-	private String routingkey;	
-	String kafkaTopic = "java_in_use_topic";		
+	@Autowired
+	private RabbitMQConfig rabbitMQConfig;
 	
 	public void sendAluno(Cliente cliente) {
-		amqpTemplate.convertAndSend(exchange, routingkey, cliente);
-		System.out.println("Enviando Cliente = " + cliente);
-	    
+		amqpTemplate.convertAndSend(rabbitMQConfig.getApp1Exchange(), rabbitMQConfig.getApp1RoutingKey(), cliente);
+		System.out.println("Enviando Cliente = " + cliente);	    
 	}
 }
