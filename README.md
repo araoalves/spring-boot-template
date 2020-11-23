@@ -5,12 +5,17 @@
 - JAVA 15
 - JPA (ok)
 - Banco Mysql (ok)
+- Mongo DD
+- GraphQL
+- Firebase
 - Sprint Security (ok)
 - Autenticação JWT (ok)
 - OAuth
 - Documentação com Swagger (ok)
 - RebbitMq para utilização de mensageria (ok)
-- Lombok
+- Kafka
+- Camel
+- Lombok (ok)
 - Envio de E-mail SMTP
 - Relatórios Ireport
 - Mockito
