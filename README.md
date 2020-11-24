@@ -22,3 +22,4 @@
 - Upload de arquivos Amazon S3
 - Logging
 - Deploy na AWS
+- Deploy no Docker (ok)
