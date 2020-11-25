@@ -14,6 +14,7 @@
 - Documentação com Swagger (ok)
 - RebbitMq para utilização de mensageria (ok)
 - Kafka
+- Redis
 - Camel
 - Lombok (ok)
 - Envio de E-mail SMTP

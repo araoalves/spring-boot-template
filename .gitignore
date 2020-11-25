@@ -33,4 +33,4 @@ build/
 .vscode/
 
 ### Docker ###
-docker/mysql-persistence/**
+/mysql-persistence/**
