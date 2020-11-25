@@ -31,16 +31,26 @@ public class JwtUserDetailsService implements UserDetailsService {
 				new ArrayList<>());
 	}
 
-	public User save(UserDto user) {
-		User newUser = new User();
-		newUser.setUsername(user.getUsername());
-		newUser.setPassword(bcryptEncoder.encode(user.getPassword()));
-		newUser.setTelefone(user.getTelefone());
-		newUser.setEmail(user.getEmail());
+	public User save(UserDto user) throws Exception {
 		
-		Calendar calendar = Calendar.getInstance();
-	    newUser.setData_cadastro(calendar.getTime());
+		User usuario = userDao.findByUsername(user.getUsername());
 		
-		return userDao.save(newUser);
+		if(usuario == null) {
+			User newUser = new User();
+			newUser.setUsername(user.getUsername());
+			newUser.setPassword(bcryptEncoder.encode(user.getPassword()));
+			newUser.setTelefone(user.getTelefone());
+			newUser.setEmail(user.getEmail());
+			
+			Calendar calendar = Calendar.getInstance();
+		    newUser.setData_cadastro(calendar.getTime());
+			
+			return userDao.save(newUser);
+		}else {
+			throw new Exception("Usuário já existente na base.");
+		}
+			
+		
+		
 	}
 }
