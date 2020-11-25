@@ -6,14 +6,14 @@
 - Multi Context (prod, dev) - OK
 - JPA (ok)
 - Banco Mysql (ok)
-- Mongo DD
+- Mongo DB
 - GraphQL
 - Firebase
 - Sprint Security (ok)
 - Autenticação JWT (ok)
 - OAuth
 - Documentação com Swagger (ok)
-- RebbitMq para utilização de mensageria (ok)
+- RabbitMq (ok)
 - Kafka
 - Redis
 - Camel
@@ -23,5 +23,6 @@
 - Mockito
 - Upload de arquivos Amazon S3
 - Logging
+- JOB Scheduled
 - Deploy na AWS
 - Deploy no Docker (ok)
