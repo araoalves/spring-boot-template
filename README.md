@@ -2,27 +2,27 @@
 
 **Tecnologias**
 
-- JAVA 15
-- Multi Context (prod, dev) - OK
-- JPA (ok)
-- Banco Mysql (ok)
-- Mongo DB
-- GraphQL
-- Firebase
-- Sprint Security (ok)
-- Autenticação JWT (ok)
-- OAuth
-- Documentação com Swagger (ok)
-- RabbitMq (ok)
-- Kafka
-- Redis
-- Camel
-- Lombok (ok)
-- Envio de E-mail SMTP
-- Relatórios Ireport
-- Mockito
-- Upload de arquivos Amazon S3
-- Logging
-- JOB Scheduled
-- Deploy na AWS
-- Deploy no Docker (ok)
+- &#9745; JAVA 15
+- &#9745; Multi Context (prod, dev) 
+- &#9745; JPA
+- &#9745; Banco Mysql
+- &#9744; Mongo DB
+- &#9744; GraphQL
+- &#9744; Firebase
+- &#9745; Sprint Security
+- &#9745; Autenticação JWT
+- &#9744; OAuth
+- &#9745; Documentação com Swagger
+- &#9745; RabbitMq
+- &#9744; Kafka
+- &#9744; Redis
+- &#9744; Camel
+- &#9745; Lombok
+- &#9744; Envio de E-mail SMTP
+- &#9744; Relatórios Ireport
+- &#9744; Mockito
+- &#9744; Upload de arquivos Amazon S3
+- &#9744; Logging
+- &#9744; JOB Scheduled
+- &#9744; Deploy na AWS
+- &#9745; Deploy no Docker
