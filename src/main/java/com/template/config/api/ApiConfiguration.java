@@ -1,9 +1,6 @@
 package com.template.config.api;
 
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.LinkedHashSet;
-import java.util.List;
 import java.util.Set;
 
 import javax.validation.Valid;
@@ -52,7 +49,7 @@ public class ApiConfiguration {
 	private @Valid SignupRequest signUpRequest() {		
 		Set<String> strings = new LinkedHashSet<>();
 		strings.add("ROLE_ADMIN");
-		return new SignupRequest("afarias","afarias@gmail.com", strings,"123456");
+		return new SignupRequest("Arão Farias", "(98) 982468103","afarias","afarias@gmail.com", strings,"123456");
 	}
 
 	

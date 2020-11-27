@@ -48,7 +48,9 @@ public class JwtUserDetailsService {
 	}
 	
 	public User createdUser(@Valid SignupRequest signUpRequest) {
-				User user = new User(signUpRequest.getUsername(), 
+				User user = new User(signUpRequest.getNome(),
+									 signUpRequest.getTelefone(),
+									 signUpRequest.getUsername(), 
 									 signUpRequest.getEmail(),
 									 encoder.encode(signUpRequest.getPassword()));
 

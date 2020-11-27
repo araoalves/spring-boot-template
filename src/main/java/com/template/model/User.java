@@ -25,6 +25,14 @@ public class User {
 	private Long id;
 
 	@NotBlank
+	@Size(max = 50)
+	private String nome;
+	
+	@NotBlank
+	@Size(max = 15)
+	private String telefone;
+	
+	@NotBlank
 	@Size(max = 20)
 	private String username;
 
@@ -43,7 +51,9 @@ public class User {
 				inverseJoinColumns = @JoinColumn(name = "role_id"))
 	private Set<Role> roles = new HashSet<>();
 	
-	public User(String username, String email, String password) {
+	public User(String nome, String telefone, String username, String email, String password) {
+		this.nome = nome;
+		this.telefone = telefone;
 		this.username = username;
 		this.email = email;
 		this.password = password;
