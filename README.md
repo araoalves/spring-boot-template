@@ -9,7 +9,7 @@
 - &#9744; Mongo DB
 - &#9744; GraphQL
 - &#9744; Firebase
-- &#9745; Sprint Security
+- &#9745; Sprint Security (RULES and Permissions)
 - &#9745; Autenticação JWT
 - &#9744; OAuth
 - &#9745; Documentação com Swagger

@@ -11,46 +11,47 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.access.channel.ChannelProcessingFilter;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import com.template.config.jwt.JwtAuthenticationEntryPoint;
-import com.template.config.jwt.JwtRequestFilter;
+import com.template.config.jwt.AuthEntryPointJwt;
+import com.template.config.jwt.AuthTokenFilter;
+import com.template.service.UserDetailsServiceImpl;
 
 @Configuration
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled = true)
+@EnableGlobalMethodSecurity(
+		// securedEnabled = true,
+		// jsr250Enabled = true,
+		prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+	@Autowired
+	UserDetailsServiceImpl userDetailsService;
 
 	@Autowired
-	private JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
-
-	@Autowired
-	private UserDetailsService jwtUserDetailsService;
-
-	@Autowired
-	private JwtRequestFilter jwtRequestFilter;
-
-	@Autowired
-	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-		// configure AuthenticationManager so that it knows from where to load
-		// user for matching credentials
-		// Use BCryptPasswordEncoder
-		auth.userDetailsService(jwtUserDetailsService).passwordEncoder(passwordEncoder());
-	}
+	private AuthEntryPointJwt unauthorizedHandler;
 
 	@Bean
-	public PasswordEncoder passwordEncoder() {
-		return new BCryptPasswordEncoder();
+	public AuthTokenFilter authenticationJwtTokenFilter() {
+		return new AuthTokenFilter();
+	}
+
+	@Override
+	public void configure(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
+		authenticationManagerBuilder.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
 	}
 
 	@Bean
 	@Override
 	public AuthenticationManager authenticationManagerBean() throws Exception {
 		return super.authenticationManagerBean();
+	}
+
+	@Bean
+	public PasswordEncoder passwordEncoder() {
+		return new BCryptPasswordEncoder();
 	}
 	
 	@Override
@@ -62,27 +63,20 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
 	@Override
-	protected void configure(HttpSecurity httpSecurity) throws Exception {
-		// We don't need CSRF for this example
-		httpSecurity
-				.csrf()
-				.disable()
-				.addFilterBefore(new CorsFilter(), ChannelProcessingFilter.class)
-				// dont authenticate this particular request
-				.authorizeRequests().antMatchers("/authentication/login", "/authentication/register").permitAll()
-				// all other requests need to be authenticated
-					
-					//.antMatchers(HttpMethod.POST,"/authentication/login").permitAll()
-					//.antMatchers(HttpMethod.POST,"/authentication/register").permitAll()
-					//.antMatchers(HttpMethod.GET, "/v3/api-docs/**").permitAll()
-					//.antMatchers(HttpMethod.GET, "/swagger-ui/**").permitAll()
-					//.antMatchers(HttpMethod.GET, "/swagger-ui.html").permitAll()
-					
-					.anyRequest().authenticated().and()				
-					.exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and().sessionManagement()
-				.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+	protected void configure(HttpSecurity http) throws Exception {
+		http.csrf()
+		.disable()
+		.addFilterBefore(new CorsFilter(), ChannelProcessingFilter.class)
+		.authorizeRequests().antMatchers("/authentication/login", "/authentication/register").permitAll()
+		.antMatchers("/clientes/listarClientes").hasAnyAuthority("ROLE_ADMIN","ROLE_MODERATOR","ROLE_USER")
+		.antMatchers("/clientes/cadastrarCliente").hasAnyAuthority("ROLE_ADMIN","ROLE_MODERATOR")
+		.antMatchers("/clientes/editarCliente/{id}").hasAnyAuthority("ROLE_MODERATOR")
+		.antMatchers("/clientes/excluirCliente/{id}").hasAnyAuthority("ROLE_ADMIN")
+		.antMatchers("/clientes/enviarClienteRebbitMq").hasAnyAuthority("ROLE_ADMIN","ROLE_MODERATOR","ROLE_USER")
+		.anyRequest().authenticated().and()				
+		.exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and().sessionManagement()
+		.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
-		// Add a filter to validate the tokens with every request
-		httpSecurity.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
+		http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
 	}
 }

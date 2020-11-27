@@ -64,9 +64,9 @@ public class ClienteController {
 			return new ResponseEntity<>(null, HttpStatus.EXPECTATION_FAILED);
 		}
 	}
-	
+		
 	@ApiOperation(value = "Excluir cliente", authorizations = { @Authorization(value="apiKey") })
-	@DeleteMapping("excluirCliente/{id}")
+	@DeleteMapping("excluirCliente/{id}")	
 	public ResponseEntity<HttpStatus> excluirCliente(@PathVariable("id") long id) {
 		try {
 			clienteBO.deleteById(id);
@@ -104,7 +104,7 @@ public class ClienteController {
 			return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
 		}		
     }
-	
+		
 	@ApiOperation(value = "Enviar Cliente RebbitMq", authorizations = { @Authorization(value="apiKey") })
 	@RequestMapping(value = "/enviarClienteRebbitMq", method = RequestMethod.POST)
 	public ResponseEntity<?> enviarClienteRebbitMq(@RequestBody Cliente cliente) throws Exception {		
