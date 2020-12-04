@@ -74,6 +74,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		.antMatchers("/clientes/editarCliente/{id}").hasAnyAuthority("ROLE_ADMIN","ROLE_MODERATOR")
 		.antMatchers("/clientes/excluirCliente/{id}").hasAnyAuthority("ROLE_ADMIN")
 		.antMatchers("/clientes/enviarClienteRebbitMq").hasAnyAuthority("ROLE_ADMIN","ROLE_MODERATOR","ROLE_USER")
+		.antMatchers("/clientes/enviarClienteKafka").hasAnyAuthority("ROLE_ADMIN","ROLE_MODERATOR","ROLE_USER")
 		.anyRequest().authenticated().and()				
 		.exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and().sessionManagement()
 		.sessionCreationPolicy(SessionCreationPolicy.STATELESS);

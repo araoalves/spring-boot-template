@@ -13,8 +13,8 @@
 - &#9745; Autenticação JWT
 - &#9744; OAuth
 - &#9745; Documentação com Swagger
-- &#9745; RabbitMq
-- &#9744; Kafka
+- &#9745; RabbitMq (Producer e Consumer)
+- &#9745; Kafka (Producer e Consumer)
 - &#9744; Redis
 - &#9744; Camel
 - &#9745; Lombok

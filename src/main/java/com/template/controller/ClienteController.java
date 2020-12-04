@@ -115,4 +115,14 @@ public class ClienteController {
 		}
 	}
 	
+	@ApiOperation(value = "Enviar Cliente Kafka", authorizations = { @Authorization(value="apiKey") })
+	@RequestMapping(value = "/enviarClienteKafka", method = RequestMethod.POST)
+	public ResponseEntity<?> enviarClienteKafka(@RequestBody Cliente cliente) throws Exception {		
+		try {
+			return new ResponseEntity<>(clienteBO.enviarClienteKafka(cliente), HttpStatus.CREATED);
+		} catch (Exception e) {
+			return new ResponseEntity<>(null, HttpStatus.EXPECTATION_FAILED);
+		}
+	}
+	
 }

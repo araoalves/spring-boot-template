@@ -8,7 +8,8 @@ import org.springframework.stereotype.Component;
 
 import com.template.model.Cliente;
 import com.template.repository.IClienteRepository;
-import com.template.service.RabbitMQSender;
+import com.template.service.KafkaProducer;
+import com.template.service.RabbitMQProducer;
 
 @Component
 public class ClienteBO implements IClienteBO {
@@ -17,7 +18,10 @@ public class ClienteBO implements IClienteBO {
 	private IClienteRepository clienteRepository;
 	
 	@Autowired
-	RabbitMQSender rabbitMQSender;
+	private RabbitMQProducer rabbitMQProducer;
+	
+	@Autowired
+	private KafkaProducer kafkaProducer;
 
 	@Override
 	public List<Cliente> findAll() throws Exception {
@@ -46,8 +50,14 @@ public class ClienteBO implements IClienteBO {
 
 	@Override
 	public Cliente enviarClienteRebbitMq(Cliente cliente) {
-		rabbitMQSender.sendAluno(cliente);
+		rabbitMQProducer.sendAluno(cliente);
 		return cliente;
+	}
+
+	@Override
+	public Cliente enviarClienteKafka(Cliente cliente) throws Exception {
+		kafkaProducer.sendCliente(cliente);
+		return cliente; 
 	}
 
 }

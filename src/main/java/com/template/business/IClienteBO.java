@@ -19,4 +19,6 @@ public interface IClienteBO {
 
 	Cliente enviarClienteRebbitMq(Cliente cliente);
 
+	Cliente enviarClienteKafka(Cliente cliente) throws Exception;
+
 }

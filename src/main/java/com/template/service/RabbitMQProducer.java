@@ -8,7 +8,7 @@ import com.template.config.rebbitmq.RabbitMQConfig;
 import com.template.model.Cliente;
 
 @Service
-public class RabbitMQSender {
+public class RabbitMQProducer {
 	
 	@Autowired
 	private AmqpTemplate amqpTemplate;

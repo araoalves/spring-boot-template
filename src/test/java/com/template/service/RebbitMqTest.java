@@ -11,7 +11,7 @@ import com.template.model.Cliente;
 public class RebbitMqTest {
 	
 	@Autowired
-	RabbitMQSender rabbitMQSender;
+	RabbitMQProducer rabbitMQSender;
 	
 	@Test
 	public void enviarCliente() {
