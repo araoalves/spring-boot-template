@@ -1,4 +1,4 @@
-package com.template.service;
+package com.template.service.jwt;
 
 import java.util.Collection;
 import java.util.List;

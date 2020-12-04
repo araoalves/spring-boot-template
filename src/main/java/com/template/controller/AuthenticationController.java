@@ -22,8 +22,8 @@ import com.template.config.jwt.JwtUtils;
 import com.template.model.payload.request.LoginRequest;
 import com.template.model.payload.request.SignupRequest;
 import com.template.model.payload.response.JwtResponse;
-import com.template.service.JwtUserDetailsService;
-import com.template.service.UserDetailsImpl;
+import com.template.service.jwt.JwtUserDetailsService;
+import com.template.service.jwt.UserDetailsImpl;
 
 @RestController
 @CrossOrigin

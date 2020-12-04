@@ -6,6 +6,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 
 import com.template.model.Cliente;
+import com.template.service.rabbitmq.RabbitMQProducer;
 
 @SpringBootTest(webEnvironment=WebEnvironment.RANDOM_PORT)
 public class RebbitMqTest {

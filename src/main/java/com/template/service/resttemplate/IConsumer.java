@@ -1,4 +1,4 @@
-package com.template.service;
+package com.template.service.resttemplate;
 
 import java.util.Map;
 

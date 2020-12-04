@@ -8,8 +8,10 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
 import lombok.ToString;
 
+@Data
 @ToString
 @Entity
 @Table(name = "cliente")
@@ -27,31 +29,4 @@ public class Cliente {
     @Column
     @ApiModelProperty(notes = "Telefone do Cliente")
     private String telefone;
-
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
-	}
-
-	public String getNome() {
-		return nome;
-	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-
-	public String getTelefone() {
-		return telefone;
-	}
-
-	public void setTelefone(String telefone) {
-		this.telefone = telefone;
-	}
-    
-    
-
 }

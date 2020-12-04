@@ -1,4 +1,4 @@
-package com.template.service;
+package com.template.service.jwt;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;

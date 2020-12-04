@@ -10,6 +10,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.http.MediaType;
 
+import com.template.service.resttemplate.IConsumer;
+
 import lombok.Data;
 import lombok.ToString;
 

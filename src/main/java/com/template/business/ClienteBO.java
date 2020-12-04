@@ -8,8 +8,8 @@ import org.springframework.stereotype.Component;
 
 import com.template.model.Cliente;
 import com.template.repository.IClienteRepository;
-import com.template.service.KafkaProducer;
-import com.template.service.RabbitMQProducer;
+import com.template.service.kafka.KafkaProducer;
+import com.template.service.rabbitmq.RabbitMQProducer;
 
 @Component
 public class ClienteBO implements IClienteBO {

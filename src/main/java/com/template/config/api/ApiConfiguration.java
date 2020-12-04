@@ -15,7 +15,7 @@ import com.template.model.ERole;
 import com.template.model.Role;
 import com.template.model.payload.request.SignupRequest;
 import com.template.repository.RoleRepository;
-import com.template.service.JwtUserDetailsService;
+import com.template.service.jwt.JwtUserDetailsService;
 
 @Configuration
 public class ApiConfiguration {
