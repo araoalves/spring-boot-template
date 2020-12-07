@@ -22,7 +22,7 @@
 - &#9744; Relatórios Ireport
 - &#9744; Mockito
 - &#9744; Upload de arquivos Amazon S3
-- &#9744; Logging
-- &#9744; JOB Scheduled
+- &#9745; Logging
+- &#9745; JOB Scheduling
 - &#9744; Deploy na AWS
 - &#9745; Deploy no Docker
