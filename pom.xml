@@ -13,7 +13,7 @@
 	<artifactId>spring-boot-template</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>spring-boot-template</name>
-	<description>API de delivery de comida</description>
+	<description>Template</description>
 
 	<properties>
 		<java.version>15</java.version>
@@ -170,8 +170,10 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+                    <finalName>template-api</finalName>
+                </configuration>
 			</plugin>
 		</plugins>
 	</build>
-
 </project>
