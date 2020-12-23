@@ -4,6 +4,7 @@
 
 - &#9745; JAVA 15
 - &#9745; Multi Context (prod, dev) 
+- &#9745; Modularizar api com Spring Profile
 - &#9745; JPA
 - &#9745; Banco Mysql
 - &#9744; Mongo DB
@@ -18,7 +19,7 @@
 - &#9744; Redis
 - &#9744; Camel
 - &#9745; Lombok
-- &#9744; Envio de E-mail SMTP
+- &#9745; Envio de E-mail SMTP
 - &#9744; Relatórios Ireport
 - &#9744; Mockito
 - &#9744; Upload de arquivos Amazon S3
