@@ -1,7 +1,14 @@
 package com.template.controller.email;
 
+import java.io.StringWriter;
+
 import javax.mail.internet.MimeMessage;
 
+import org.apache.velocity.Template;
+import org.apache.velocity.VelocityContext;
+import org.apache.velocity.app.VelocityEngine;
+import org.apache.velocity.runtime.RuntimeConstants;
+import org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.mail.SimpleMailMessage;
@@ -43,20 +50,42 @@ public class EmailController {
     }
     
     @RequestMapping(path = "/sendMailHtml", method = RequestMethod.GET)
-    public String sendMailHtml() {
+    public String sendMailHtml() throws Exception {
+    	
+    	Template template;
+		String mensagem;
+    	
         try {
             MimeMessage mail = mailSender.createMimeMessage();
+            
+            VelocityEngine ve = new VelocityEngine();
+
+			ve.setProperty(RuntimeConstants.RESOURCE_LOADER, "classpath");
+			ve.setProperty("classpath.resource.loader.class", ClasspathResourceLoader.class.getName());
+			ve.setProperty("runtime.log.logsystem.class", "org.apache.velocity.runtime.log.NullLogSystem");
+
+
+			ve.init();
+			template = ve.getTemplate("velocity/template.vm", "UTF-8");
+			VelocityContext context = new VelocityContext();
+			
+			context.put("nome", "Arão Farias");
+
+			StringWriter writer = new StringWriter();
+			template.merge(context, writer);
+
+			mensagem = writer.toString();
 
             MimeMessageHelper helper = new MimeMessageHelper( mail );
-            helper.setTo( "arao.alves7@gmail.com" );
-            helper.setSubject( "Teste Envio de e-mail" );
-            helper.setText("<p>Teste de envio de e-mail via Spring Boot</p>", true);
+            helper.setTo("arao.alves7@gmail.com");
+            helper.setFrom("arao.alves7@gmail.com");
+            helper.setSubject("Teste Envio de e-mail");
+            helper.setText(mensagem, true);
             mailSender.send(mail);
 
             return "OK";
         } catch (Exception e) {
-            e.printStackTrace();
-            return "Erro ao enviar e-mail";
+        	throw new Exception(e.getMessage());
         }
     }
 	

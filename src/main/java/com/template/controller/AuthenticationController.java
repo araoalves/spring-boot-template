@@ -64,7 +64,7 @@ public class AuthenticationController {
 		try {
 			return new ResponseEntity<>(userDetailsService.save(signUpRequest), HttpStatus.CREATED);
 		} catch (Exception e) {
-			return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
+			throw new Exception(e.getMessage());
 		}	
 	}
 

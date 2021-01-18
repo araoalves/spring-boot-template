@@ -1,5 +1,6 @@
 package com.template.exception.handle;
 
+import com.sun.mail.smtp.SMTPSendFailedException;
 import com.template.exception.BusinessException;
 import com.template.model.ExceptionModel;
 import org.springframework.http.HttpHeaders;
@@ -21,6 +22,17 @@ public class CustomizeExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(BusinessException.class)
     public final ResponseEntity<Object> handleAllException(BusinessException ex, WebRequest request) throws Exception {
+        ExceptionModel exceptionModel =  ExceptionModel
+                .builder()
+                .datestamp(new Date())
+                .message(ex.getMessage())
+                .code(HttpStatus.INTERNAL_SERVER_ERROR.value())
+                .build();
+        return new ResponseEntity<>(exceptionModel, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+    
+    @ExceptionHandler(SMTPSendFailedException.class)
+    public final ResponseEntity<Object> handleAllException(SMTPSendFailedException ex, WebRequest request) throws Exception {
         ExceptionModel exceptionModel =  ExceptionModel
                 .builder()
                 .datestamp(new Date())

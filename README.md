@@ -20,6 +20,7 @@
 - &#9744; Camel
 - &#9745; Lombok
 - &#9745; Envio de E-mail SMTP
+- &#9745; Velocity para criação de templates de E-mail HTML
 - &#9744; Relatórios Ireport
 - &#9744; Mockito
 - &#9744; Upload de arquivos Amazon S3
