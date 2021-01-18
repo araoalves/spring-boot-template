@@ -4,6 +4,7 @@ import java.io.StringWriter;
 
 import javax.mail.internet.MimeMessage;
 
+import org.apache.commons.codec.CharEncoding;
 import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
@@ -11,6 +12,7 @@ import org.apache.velocity.runtime.RuntimeConstants;
 import org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -75,12 +77,15 @@ public class EmailController {
 			template.merge(context, writer);
 
 			mensagem = writer.toString();
+			
+			ClassPathResource pdf = new ClassPathResource("email/Teste.pdf");
 
-            MimeMessageHelper helper = new MimeMessageHelper( mail );
+            MimeMessageHelper helper = new MimeMessageHelper(mail, true, CharEncoding.UTF_8);
             helper.setTo("arao.alves7@gmail.com");
             helper.setFrom("arao.alves7@gmail.com");
             helper.setSubject("Teste Envio de e-mail");
             helper.setText(mensagem, true);
+            helper.addAttachment("attachment.pdf", pdf);
             mailSender.send(mail);
 
             return "OK";
